@@ -1,0 +1,20 @@
+.details_choise_size {
+  display: flex;
+}
+.details_choise_size input[type="radio"] {
+  display: none;
+}
+.details_choise_size span {
+  display: block;
+  border: 1px solid #1d1f22;
+  margin-right: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+  text-align: center;
+  width: 65px;
+  box-sizing: border-box;
+}
+.details_choise_size input[type="radio"]:checked + span {
+  background: #1d1f22;
+  color: #fff;
+}

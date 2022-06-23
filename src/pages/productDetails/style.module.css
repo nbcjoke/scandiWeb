@@ -1,0 +1,125 @@
+.details_wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 80px 220px 180px 100px;
+}
+
+.details_image_wrapper {
+  display: flex;
+  margin-right: 100px;
+}
+
+.details_image_container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-right: 40px;
+}
+
+.details_image {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+.details_main_image {
+  width: 600px;
+  height: 500px;
+  object-fit: contain;
+}
+
+.details_name,
+.details_view {
+  font-size: 30px;
+  line-height: 27px;
+}
+
+.details_name {
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.details_view {
+  margin-bottom: 45px;
+}
+
+.details_title {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.details_price {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 18px;
+}
+
+.details_button {
+  width: 100%;
+  max-width: 345px;
+  padding: 16px 32px;
+  margin: 40px 0;
+  background-color: #5ece7b;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.details_button:hover {
+  background-color: #389952;
+}
+
+.details_description {
+  width: 100%;
+  line-height: 160%;
+  font-family: "Roboto", sans-serif;
+}
+
+.details_size_wrapper {
+  margin-bottom: 25px;
+}
+
+.details_color_wrapper {
+  margin-bottom: 35px;
+}
+
+.details_choise_size,
+.details_choise_color {
+  display: flex;
+}
+.details_choise_size input[type="radio"],
+.details_choise_color input[type="radio"] {
+  display: none;
+}
+.details_choise_size span {
+  display: block;
+  border: 1px solid #1d1f22;
+  margin-right: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+  text-align: center;
+  width: 65px;
+  box-sizing: border-box;
+}
+.details_choise_size input[type="radio"]:checked + span {
+  background: #1d1f22;
+  color: #fff;
+}
+
+.details_choise_color span {
+  display: block;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  margin-right: 8px;
+  cursor: pointer;
+  background: #1d1f22;
+}
+
+.details_choise_color input[type="radio"]:checked + span {
+  border: 1px solid #5ece7b;
+}
