@@ -42,6 +42,10 @@ export class CartLayout extends React.Component {
     CartStore.decreaseAmount(product);
   }
 
+  updateSelectedAttributes(index, attributes) {
+    CartStore.updateCartProductSelections(index, attributes);
+  }
+
   totalSymbol = () =>
     this.state.cartProducts[0]?.price?.currency?.symbol || "$";
 
@@ -50,28 +54,34 @@ export class CartLayout extends React.Component {
 
   productsPrice = () =>
     this.state.cartProducts.reduce(
-      (sum, product) => Math.round(sum + product.amount * product.price.amount),
+      (sum, product) => sum + product.amount * product.price.amount,
       0
     );
 
   totalTax = () => {
-    return Math.round(this.state.totalTax * this.productsPrice());
+    return (this.state.totalTax * this.productsPrice()).toFixed(2);
   };
 
-  totalPrice = () => this.productsPrice() + this.totalTax();
+  totalPrice = () => {
+    return (this.productsPrice() + +this.totalTax()).toFixed(2);
+  };
 
   render() {
     return (
       <div className={styles.cart_wrapper}>
         <h4 className={styles.cart_title}>Cart</h4>
         <div className={styles.cart_items_container}>
-          {this.state.cartProducts?.map((product) => {
+          {this.state.cartProducts?.map((product, index) => {
             return (
               <CartItem
                 product={product}
                 removeItemFromCart={this.removeItemFromCart}
                 increaseAmount={this.increaseAmount}
                 decreaseAmount={this.decreaseAmount}
+                updateSelectedAttributes={this.updateSelectedAttributes.bind(
+                  this,
+                  index
+                )}
               />
             );
           })}

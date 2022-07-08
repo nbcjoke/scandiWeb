@@ -43,6 +43,10 @@
   line-height: 28px;
 }
 
+.cart_order_total {
+  font-weight: 500;
+}
+
 .cart_order_button {
   padding: 16px 32px;
   color: #fff;
@@ -126,8 +130,6 @@
   border: 1px solid #1d1f22;
   width: 45px;
   height: 45px;
-  /* max-height: 45px;
-  max-width: 45px; */
 }
 
 .cart_quantity_input {
@@ -138,7 +140,8 @@
   outline: none;
   text-align: center;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 24px;
+  font-family: "Raleway", sans-serif;
   line-height: 160%;
 }
 
@@ -150,17 +153,6 @@
   width: 200px;
   height: 290px;
   object-fit: contain;
-}
-
-.cart_delete {
-  position: absolute;
-  left: 945px;
-  top: 30px;
-}
-
-.cart_delete_img {
-  width: 32px;
-  height: 32px;
 }
 
 .cart_slider_container {

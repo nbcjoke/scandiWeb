@@ -45,12 +45,17 @@
 }
 
 .details_title {
-  margin-bottom: 10px;
   text-transform: uppercase;
   font-size: 18px;
   line-height: 18px;
   font-weight: 700;
   font-family: "Roboto Condensed", sans-serif;
+}
+
+.details_price_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .details_price {
@@ -59,14 +64,26 @@
   line-height: 18px;
 }
 
-.details_button {
+.details_button,
+.details_button_inStock {
   width: 100%;
   max-width: 345px;
   padding: 16px 32px;
   margin: 40px 0;
-  background-color: #5ece7b;
   color: #fff;
   transition: 0.3s;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 120%;
+  font-family: "Raleway", sans-serif;
+}
+
+.details_button {
+  background-color: #5ece7b;
+}
+
+.details_button_inStock {
+  background-color: gray;
 }
 
 .details_button:hover {
@@ -75,15 +92,24 @@
 
 .details_description {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   line-height: 160%;
   font-family: "Roboto", sans-serif;
 }
 
 .details_size_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 25px;
 }
 
 .details_color_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   margin-bottom: 35px;
 }
 

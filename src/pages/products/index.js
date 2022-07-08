@@ -1,12 +1,18 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import { ProductCard } from "./components/ProductCard";
 import CategoriesStore from "../../core/store/categories";
 import CartStore from "../../core/store/cart";
+import CurrencyStore from "../../core/store/currency";
+import { ProductService } from "../../core/services/product.service";
 
 import styles from "./style.module.css";
 
-export class ProductsLayout extends React.Component {
+function withParams(Component) {
+  return (props) => <Component {...props} params={useParams()} />;
+}
+export class ProductsLayoutClass extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,18 +22,61 @@ export class ProductsLayout extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.params.category || "all");
+    CategoriesStore.selectCategory(this.props.params.category || "all");
+    this.fetchProducts();
     CategoriesStore.addChangeListener(this._onChange);
-    this._onChange();
   }
 
   componentWillUnmount() {
+    CurrencyStore.removeChangeListener(this.currencyChanged);
     CategoriesStore.removeChangeListener(this._onChange);
   }
 
-  _onChange = () => {
+  currencyChanged = () => {
+    const selectedCurrency = CurrencyStore.getCurrency();
+    const products = this.state.products;
+    this.setState({
+      products: products?.map((product) => {
+        return {
+          ...product,
+          price: product.prices.find(
+            ({ currency }) => currency.label === selectedCurrency
+          ),
+        };
+      }),
+    });
+  };
+
+  fetchProducts = () => {
+    const selectedCurrency = CurrencyStore.getCurrency();
     const category = CategoriesStore.getCategory();
-    const categoryData = CategoriesStore.getCategoryData(category);
-    this.setState({ products: categoryData?.products, category });
+    console.log(category);
+    ProductService.fetchProducts(category).then((category) => {
+      this.setState({
+        category: category.name,
+        products: category.products.map((product) => {
+          return {
+            ...product,
+            price: product.prices.find(
+              ({ currency }) => currency.label === selectedCurrency
+            ),
+            selectedAttributes: product.attributes.reduce(
+              (prev, attribute) => ({
+                ...prev,
+                [attribute.name]: attribute.items[0].id,
+              }),
+              {}
+            ),
+          };
+        }),
+      });
+      CurrencyStore.addChangeListener(this.currencyChanged);
+    });
+  };
+
+  _onChange = () => {
+    this.fetchProducts();
   };
 
   addItemToCart(event, product) {
@@ -45,6 +94,7 @@ export class ProductsLayout extends React.Component {
             {this.state?.products?.map((product) => {
               return (
                 <ProductCard
+                  key={product.id}
                   product={product}
                   addItemToCart={this.addItemToCart}
                 />
@@ -56,3 +106,5 @@ export class ProductsLayout extends React.Component {
     );
   }
 }
+
+export const ProductsLayout = withParams(ProductsLayoutClass);

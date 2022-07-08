@@ -17,8 +17,19 @@ const CartStore = assign({}, EventEmitter.prototype, {
     });
   },
 
+  getAddedProduct: function getAddedProduct(product) {
+    return this.cartData.find(({ id, selectedAttributes }) => {
+      return (
+        id === product.id &&
+        Object.keys(selectedAttributes).every(
+          (key) => selectedAttributes[key] === product.selectedAttributes[key]
+        )
+      );
+    });
+  },
+
   addItemToCart: function addToCart(product) {
-    const added = this.cartData.find(({ id }) => id === product.id);
+    const added = this.getAddedProduct(product);
     if (added) {
       added.amount++;
     } else {
@@ -27,14 +38,8 @@ const CartStore = assign({}, EventEmitter.prototype, {
     this.emit("change");
   },
 
-  removeItemFromCart: function removeFromCart(product) {
-    const deleted = this.cartData.findIndex(({ id }) => id === product.id);
-    this.cartData.splice(deleted, 1);
-    this.emit("change");
-  },
-
   increaseAmount: function increaseAmount(product) {
-    const increase = this.cartData.find(({ id }) => id === product.id);
+    const increase = this.getAddedProduct(product);
     if (!increase) {
       return;
     }
@@ -43,17 +48,35 @@ const CartStore = assign({}, EventEmitter.prototype, {
   },
 
   decreaseAmount: function decreaseAmount(product) {
-    const increase = this.cartData.find(({ id }) => id === product.id);
-    if (increase?.amount === 1) {
-      return;
+    const decrease = this.getAddedProduct(product);
+    if (decrease?.amount === 1) {
+      const deleted = this.cartData.findIndex(
+        ({ id, selectedAttributes }) =>
+          id === product.id &&
+          Object.keys(selectedAttributes).every(
+            (key) => selectedAttributes[key] === product.selectedAttributes[key]
+          )
+      );
+      this.cartData.splice(deleted, 1);
     }
-    increase.amount--;
+    decrease.amount--;
     this.emit("change");
   },
 
-  updateCartProductSelections: function updateCartProductSelections(product) {
-    const added = this.cartData.find(({ id }) => id === product.id);
-    added.selectedAttributes = product.selectedAttributes;
+  updateCartProductSelections: function updateCartProductSelections(
+    index,
+    attributes
+  ) {
+    const added = this.cartData[index];
+    if (!added) {
+      return;
+    }
+    added.selectedAttributes = attributes;
+    const productWithSameAttributes = this.getAddedProduct(added);
+    if (productWithSameAttributes) {
+      productWithSameAttributes.amount += added.amount;
+      this.cartData.splice(index, 1);
+    }
     this.emit("change");
   },
 

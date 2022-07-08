@@ -3,6 +3,7 @@ import React from "react";
 import CurrencyStore from "../../core/store/currency";
 
 import styles from "./style.module.css";
+import currencySwitcher from "../../static/icons/currency-switcher.svg";
 
 export class SelectCurrency extends React.Component {
   constructor(props) {
@@ -11,10 +12,18 @@ export class SelectCurrency extends React.Component {
       isOpened: false,
       currency: null,
     };
+
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
     this.setState({ currency: CurrencyStore.getCurrency() });
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   toggleState = () => {
@@ -25,6 +34,12 @@ export class SelectCurrency extends React.Component {
     this.setState({ currency, isOpened: false });
     CurrencyStore.setCurrency(currency);
   };
+
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.current?.contains(event.target)) {
+      this.setState({ isOpened: false });
+    }
+  }
 
   render() {
     const currency = this.props.currencies.find(
@@ -40,10 +55,18 @@ export class SelectCurrency extends React.Component {
             <span className={styles.header_select_current}>
               {currency?.symbol}
             </span>
-            <div className={styles.header_select_icon}></div>
+            <div
+              className={
+                !this.state.isOpened
+                  ? styles.header_select_icon
+                  : styles.select_icon_reverse
+              }
+            >
+              <img src={currencySwitcher} alt="currency Switcher" />
+            </div>
           </div>
           {this.state.isOpened && (
-            <div className={styles.header_select_list}>
+            <div className={styles.header_select_list} ref={this.wrapperRef}>
               {this.props.currencies.map((currency) => {
                 return (
                   <div

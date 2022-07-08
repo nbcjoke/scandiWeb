@@ -49,19 +49,7 @@ const CategoriesStore = assign({}, EventEmitter.prototype, {
   },
 
   setCategoriesData: function setCategoriesData(categories) {
-    this.categoriesData = categories.map((category) => ({
-      ...category,
-      products: category.products.map((product) => ({
-        ...product,
-        selectedAttributes: product.attributes.reduce(
-          (prev, attribute) => ({
-            ...prev,
-            [attribute.name]: attribute.items[0].id,
-          }),
-          {}
-        ),
-      })),
-    }));
+    this.categoriesData = categories;
   },
 });
 

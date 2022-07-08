@@ -15,12 +15,16 @@ export class ProductCard extends React.Component {
           (product.inStock ? styles.out_of_stock : "")
         }
       >
-        <NavLink to={`products/${product.id}`} className={styles.products_link}>
+        <NavLink
+          to={`/products/${product.id}`}
+          className={styles.products_link}
+        >
           <div className={styles.products_card_img_container}>
             <img
               className={styles.products_card_img}
-              src={product.gallery}
+              src={product.gallery[0]}
               alt="product"
+              onError={(event) => (event.target.style.visibility = "hidden")}
             />
           </div>
           <div className={styles.products_card_background}></div>
@@ -38,8 +42,8 @@ export class ProductCard extends React.Component {
               <span className={styles.products_card_view}>{product.name}</span>
             </h4>
             <p className={styles.products_card_cost}>
-              <span>{product.price.currency.symbol}</span>
-              {Math.round(product.price.amount)}
+              <span>{product.price?.currency?.symbol}</span>
+              {product.price?.amount.toFixed(2)}
             </p>
           </div>
         </NavLink>

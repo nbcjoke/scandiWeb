@@ -32,8 +32,8 @@
   text-decoration: none;
 }
 
-.out_of_stock {
-  pointer-events: none;
+.out_of_stock .products_cart {
+  visibility: hidden;
 }
 
 .products_card_background {

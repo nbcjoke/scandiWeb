@@ -1,11 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import DOMPurify from "dompurify";
 
-import { ChoiceSize } from "../../components/choiceSize";
-import { ChoiceColor } from "../../components/choiceColor";
 import CartStore from "../../core/store/cart";
 import CurrencyStore from "../../core/store/currency";
 import { ProductService } from "../../core/services/product.service";
+import { ChoiceSize } from "../../components/choiceSize";
+import { ChoiceColor } from "../../components/choiceColor";
 
 import styles from "./style.module.css";
 
@@ -156,23 +157,31 @@ export class ProductDetailsLayoutClass extends React.Component {
               );
             })}
           </div>
-          <div className={styles.details_price}>
+          <div className={styles.details_price_wrapper}>
             <p className={styles.details_title}>PRICE:</p>
             <p className={styles.details_price}>
               <span>{product.price?.currency?.symbol}</span>
-              {product.price?.amount}
+              {product.price?.amount.toFixed(2)}
             </p>
           </div>
-          <button
-            className={styles.details_button}
-            onClick={() => this.addItemToCart(product)}
-          >
-            ADD TO CART
-          </button>
-          <p
+          {product.inStock ? (
+            <button className={styles.details_button_inStock}>
+              OUT OF STOCK
+            </button>
+          ) : (
+            <button
+              className={styles.details_button}
+              onClick={() => this.addItemToCart(product)}
+            >
+              ADD TO CART
+            </button>
+          )}
+          <div
             className={styles.details_description}
-            dangerouslySetInnerHTML={{ __html: product.description }}
-          ></p>
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(product.description),
+            }}
+          ></div>
         </div>
       </div>
     );

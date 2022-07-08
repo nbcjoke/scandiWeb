@@ -1,10 +1,12 @@
 import React from "react";
+import * as uuid from "uuid";
 
 import styles from "./style.module.css";
 
 export class ChoiceSize extends React.Component {
   render() {
     const items = this.props.items || [];
+    const key = uuid.v4();
     return (
       <div className={styles.details_choise_size}>
         {items.map(({ id, value }) => {
@@ -12,7 +14,7 @@ export class ChoiceSize extends React.Component {
             <label key={id}>
               <input
                 type="radio"
-                name="size"
+                name={key}
                 value={id}
                 checked={id === this.props.selected}
                 onChange={(e) => {

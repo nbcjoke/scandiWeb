@@ -7,13 +7,21 @@
 
 .details_choise_color span {
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   box-sizing: border-box;
+  padding: 1px;
   margin-right: 8px;
   cursor: pointer;
-  background: #1d1f22;
   border: 1px solid #eeeeee;
+}
+
+.details_choise_color span:before {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: currentColor;
 }
 
 .details_choise_color input[type="radio"]:checked + span {

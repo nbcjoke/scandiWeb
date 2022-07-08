@@ -5,30 +5,6 @@ export class CategoriesService {
       query: `{
               categories {
                 name
-                products {
-                  id
-                  name
-                  inStock
-                  gallery
-                  prices {
-                    currency {
-                      label
-                      symbol
-                    }
-                    amount
-                  }
-                  brand
-                  attributes {
-                    id
-                    name
-                    type
-                    items {
-                      displayValue
-                      value
-                      id
-                    }
-                  }
-                }
               },
               currencies {
                 label

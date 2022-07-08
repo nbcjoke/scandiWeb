@@ -10,7 +10,6 @@ import { CategoriesService } from "../../core/services/categories.service";
 import styles from "./style.module.css";
 import { ReactComponent as Logo } from "./../../static/icons/logo.svg";
 import cart from "../../static/icons/cart.svg";
-
 export class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -28,9 +27,6 @@ export class Header extends React.Component {
         categories: result.data.categories,
         currencies: result.data.currencies,
       });
-      if (result.data.categories[0]) {
-        this.selectCategory(result.data.categories[0].name);
-      }
     });
   };
 
@@ -53,6 +49,11 @@ export class Header extends React.Component {
     CategoriesStore.emitChange();
   }
 
+  getCategory(category) {
+    CategoriesStore.getCategory(category);
+    CategoriesStore.emitChange();
+  }
+
   setCurrency(event) {
     CurrencyStore.setCurrency(event.target.selectedOptions[0].value);
   }
@@ -69,7 +70,10 @@ export class Header extends React.Component {
                   className={styles.header_item}
                   onClick={this.selectCategory.bind(this, category.name)}
                 >
-                  <NavLink to="/" className={styles.header_link}>
+                  <NavLink
+                    to={`/${category.name}`}
+                    className={styles.header_link}
+                  >
                     {category.name}
                   </NavLink>
                 </li>

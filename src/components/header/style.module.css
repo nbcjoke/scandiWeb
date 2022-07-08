@@ -37,6 +37,7 @@
   line-height: 120%;
 }
 
+.active,
 .header_link:hover {
   color: #5ece7b;
 }
@@ -51,6 +52,7 @@
   transition: 0.3s;
 }
 
+.active::after,
 .header_link:hover::after {
   background-color: #5ece7b;
 }

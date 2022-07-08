@@ -1,5 +1,4 @@
 .header_select {
-  /* width: 115px; */
   position: relative;
 }
 
@@ -11,16 +10,23 @@
 
 .header_select_current {
   padding: 5px;
+  font-weight: 500;
+  font-size: 18px;
 }
 
-.header_select_icon {
+.header_select_icon,
+.select_icon_reverse {
   align-items: center;
   display: flex;
   justify-content: center;
-  margin-left: auto;
+  margin-left: 5px;
   width: 6px;
   height: 4px;
   text-align: center;
+}
+
+.select_icon_reverse {
+  transform: rotate(180deg);
 }
 
 .header_select_list {
@@ -30,6 +36,7 @@
   top: 100%;
   left: 0;
   right: 0;
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 }
 
 .header_select_item {

@@ -1,11 +1,9 @@
 import React from "react";
 
-import CartStore from "../../../core/store/cart";
 import { ChoiceSize } from "../../../components/choiceSize";
 import { ChoiceColor } from "../../../components/choiceColor";
 
 import sliderLeft from "../../../static/icons/sliderLeft.svg";
-import deleteImage from "../../../static/icons/delete.svg";
 import styles from "../style.module.css";
 
 export class CartItem extends React.Component {
@@ -46,14 +44,9 @@ export class CartItem extends React.Component {
   };
 
   selectAttribute = (attribute, selectedValue) => {
-    const product = this.props.product;
-
-    CartStore.updateCartProductSelections({
-      ...product,
-      selectedAttributes: {
-        ...product.selectedAttributes,
-        [attribute.name]: selectedValue,
-      },
+    this.props.updateSelectedAttributes({
+      ...this.props.product.selectedAttributes,
+      [attribute.name]: selectedValue,
     });
   };
 
@@ -66,7 +59,7 @@ export class CartItem extends React.Component {
           <div className={styles.cart_item_view}>{product.name}</div>
           <div className={styles.cart_item_price}>
             {product.price.currency.symbol}
-            {Math.round(product.price.amount)}
+            {product.price.amount.toFixed(2)}
           </div>
           <div className={styles.cart_item_choise}>
             <div className={styles.cart_item_size}>
@@ -111,16 +104,6 @@ export class CartItem extends React.Component {
             </div>
           </div>
         </div>
-        <button
-          className={styles.cart_delete}
-          onClick={() => this.props.removeItemFromCart(product)}
-        >
-          <img
-            className={styles.cart_delete_img}
-            src={deleteImage}
-            alt="delete"
-          />
-        </button>
         <div className={styles.cart_wrapp}>
           <div className={styles.cart_quantity}>
             <button
@@ -148,20 +131,24 @@ export class CartItem extends React.Component {
               src={product.gallery[this.state.imageIndex]}
               alt="product"
             />
-            <div className={styles.cart_slider_container}>
-              <div
-                className={styles.cart_slider_btn}
-                onClick={this.previousImage.bind(this)}
-              >
-                <img src={sliderLeft} alt="slider" />
+            {product.gallery.length === 1 ? (
+              ""
+            ) : (
+              <div className={styles.cart_slider_container}>
+                <div
+                  className={styles.cart_slider_btn}
+                  onClick={this.previousImage.bind(this)}
+                >
+                  <img src={sliderLeft} alt="slider" />
+                </div>
+                <div
+                  className={styles.cart_slider_btn}
+                  onClick={this.nextImage.bind(this)}
+                >
+                  <img src={sliderLeft} alt="slider" />
+                </div>
               </div>
-              <div
-                className={styles.cart_slider_btn}
-                onClick={this.nextImage.bind(this)}
-              >
-                <img src={sliderLeft} alt="slider" />
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

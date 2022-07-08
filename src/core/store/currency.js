@@ -1,20 +1,18 @@
 import { EventEmitter } from "events";
 import assign from "object-assign";
 
-import CategoriesStore from "./categories";
 import CartStore from "./cart";
 
 const CurrencyStore = assign({}, EventEmitter.prototype, {
   currency: "USD",
 
-  getCurrency: function getCurrency() {
+  getCurrency: function getCurrency(currency) {
     return this.currency;
   },
 
   setCurrency: function setCurrency(currency) {
     this.currency = currency;
     this.emit("change");
-    CategoriesStore.emitChange();
     CartStore.emitChange();
   },
 
