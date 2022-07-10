@@ -49,11 +49,6 @@ export class Header extends React.Component {
     CategoriesStore.emitChange();
   }
 
-  getCategory(category) {
-    CategoriesStore.getCategory(category);
-    CategoriesStore.emitChange();
-  }
-
   setCurrency(event) {
     CurrencyStore.setCurrency(event.target.selectedOptions[0].value);
   }

@@ -19,13 +19,6 @@
   position: relative;
 }
 
-.header_item:hover::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-bottom: 10px solid #5ece7b;
-}
-
 .header_link {
   position: relative;
   text-decoration: none;
@@ -51,7 +44,6 @@
   left: 0;
   transition: 0.3s;
 }
-
 .active::after,
 .header_link:hover::after {
   background-color: #5ece7b;

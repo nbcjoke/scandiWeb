@@ -67,15 +67,17 @@ const CartStore = assign({}, EventEmitter.prototype, {
     index,
     attributes
   ) {
-    const added = this.cartData[index];
+    let added = this.cartData[index];
     if (!added) {
       return;
     }
-    added.selectedAttributes = attributes;
+    added = { ...added, selectedAttributes: attributes };
     const productWithSameAttributes = this.getAddedProduct(added);
     if (productWithSameAttributes) {
       productWithSameAttributes.amount += added.amount;
       this.cartData.splice(index, 1);
+    } else {
+      this.cartData.splice(index, 1, added);
     }
     this.emit("change");
   },

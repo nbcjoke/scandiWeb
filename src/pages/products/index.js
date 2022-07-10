@@ -22,7 +22,6 @@ export class ProductsLayoutClass extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.params.category || "all");
     CategoriesStore.selectCategory(this.props.params.category || "all");
     this.fetchProducts();
     CategoriesStore.addChangeListener(this._onChange);
@@ -51,7 +50,6 @@ export class ProductsLayoutClass extends React.Component {
   fetchProducts = () => {
     const selectedCurrency = CurrencyStore.getCurrency();
     const category = CategoriesStore.getCategory();
-    console.log(category);
     ProductService.fetchProducts(category).then((category) => {
       this.setState({
         category: category.name,
