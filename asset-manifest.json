@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/ScandiWeb/static/css/main.2aa81aeb.css",
+    "main.js": "/ScandiWeb/static/js/main.2b7f6e8b.js",
+    "static/media/logo.svg": "/ScandiWeb/static/media/logo.5e2d5c0348a029df06ba38b7f3e6be41.svg",
+    "static/media/products-cart.svg": "/ScandiWeb/static/media/products-cart.c2e3684bc5a8cc6fb5c9fac5037192d5.svg",
+    "static/media/cart.svg": "/ScandiWeb/static/media/cart.d19953670255792370f9fd25fc20f2ce.svg",
+    "index.html": "/ScandiWeb/index.html",
+    "static/media/sliderLeft.svg": "/ScandiWeb/static/media/sliderLeft.f8b5af7ab1f09bd7e503d8bc232efcf9.svg",
+    "static/media/currency-switcher.svg": "/ScandiWeb/static/media/currency-switcher.766d7b11f183f77a1e40c47ea18dd7ee.svg",
+    "main.2aa81aeb.css.map": "/ScandiWeb/static/css/main.2aa81aeb.css.map",
+    "main.2b7f6e8b.js.map": "/ScandiWeb/static/js/main.2b7f6e8b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2aa81aeb.css",
+    "static/js/main.2b7f6e8b.js"
+  ]
+}
